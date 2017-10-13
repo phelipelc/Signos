@@ -4,12 +4,27 @@ import android.content.Intent;
 import  android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Button;
 public class Principal extends AppCompatActivity {
     private Spinner spinnerDia = null;
     private Spinner spinnerMes = null;
+
+    private void validarData(){
+     int dia = spinnerDia.getSelectedItemPosition();
+     int mes = spinnerMes.getSelectedItemPosition();
+        dia++;
+        mes++;
+
+        if(dia > 29 && mes == 2){
+        spinnerDia.setSelection(28);
+        }else if((mes == 4 || mes == 6 || mes == 9 || mes == 11) && (dia > 30)){
+        spinnerDia.setSelection(29);
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +42,34 @@ public class Principal extends AppCompatActivity {
         adapter_mes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDia.setAdapter(adapter_dia);
         spinnerMes.setAdapter(adapter_mes);
+
+        spinnerDia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                validarData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                validarData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
         Button enviar = (Button) findViewById(R.id.buttonEnviar);
         enviar.setOnClickListener(new View.OnClickListener() {
 

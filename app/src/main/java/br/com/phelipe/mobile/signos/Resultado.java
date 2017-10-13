@@ -4,7 +4,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class Resultado extends AppCompatActivity {
@@ -13,6 +16,9 @@ public class Resultado extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
+
+
+
 
         Bundle args = getIntent().getBundleExtra("signo");
 
@@ -29,8 +35,16 @@ public class Resultado extends AppCompatActivity {
             TextView datas = (TextView) findViewById(R.id.textData);
 
             resultado.setText(signoRecebido.getNome());
-            datas.setText("de" + signoRecebido.getDiainicio() + "/"+ signoRecebido.getMesinicio() + "até" +signoRecebido.getDiaFim() +"/"+ signoRecebido.getMesfim());
+            datas.setText(" de " + signoRecebido.getDiainicio() + "/"+ signoRecebido.getMesinicio() + " até " +signoRecebido.getDiaFim() +"/"+ signoRecebido.getMesfim());
         }
+
+        Button voltar = (Button) findViewById(R.id.buttonVoltar);
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 }
